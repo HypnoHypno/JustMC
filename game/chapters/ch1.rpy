@@ -264,7 +264,7 @@ label ch1_2_choice1:
     $ clear_history()
     mc cross om normal_lookaway "Oh, by the way, I also found something else in the script."
     mc neut ce cm lhip rup "It seems to be some kind of way for us to more directly communicate...?"
-    mc nerv oe ldown rhip "It kind of went over my head, but from reading the documentation, it looks like you can only talk to me through dialog choices?{bw}"
+    mc nerv oe ldown rhip "It kind of went over my head, but from reading the documentation, it looks like you can only talk to me through dialog choices?{nw}"
     $ _history_list.pop()
     menu:
         mc "It kind of went over my head, but from reading the documentation, it looks like you can only talk to me through dialog choices?{fast}"
