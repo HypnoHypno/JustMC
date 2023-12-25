@@ -19,7 +19,7 @@ Here are the affection levels:
 
 - Neutral: -29 to 99 (1.00*) (8.75 Days from Cold) (1 month from Antagonistic)
 
--Cold: -99 to -30 (0.75*) (18.75 Days from Hostile)
+- Cold: -99 to -30 (0.75*) (18.75 Days from Hostile)
 
 - Hostile: -249 to -100 (0.5*) (12.625 Days from Antagonistic)
 
