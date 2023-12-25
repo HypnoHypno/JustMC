@@ -25,7 +25,7 @@ Here are the affection levels:
 
 - Antagonistic: -350 to -250 (0.25*)
 
-The numbers in parenthesis are the affection multiplier, and how many days it'd take to get to this level of affection respectively, assuming you're playing perfectly and are at the lowest affection value of the previous level.
+The numbers in parenthesis are the affection multiplier, and how much time it'd take to get to this level of affection respectively, assuming you're playing perfectly and are at the lowest affection value of the level stated.
 
 ### Affection Gain
 Using jm_add_affection(affection) will add a certain amount of affection, however it will be multiplied by the affection multiplier, to make it so that if MC already likes you, you have to put in less work to keep things on good terms, but if he hates you, you need to put a lot more work in.
