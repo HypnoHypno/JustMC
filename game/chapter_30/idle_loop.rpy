@@ -3,13 +3,6 @@ default persistent.topics = []
 init python:
     def jm_get_idle_time():
         return random.randint(25, 45)
-    
-    def jm_add_new_topic(topic_name):
-        if topic_name not in persistent.topics:
-            persistent.topics.append(topic_name)
-            return True
-        else:
-            return False
 
 label ch30_loop:
     $ persistent.can_impatient = True
