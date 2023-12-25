@@ -5,7 +5,7 @@ It's a value which represents how much MC likes the player. It, combined with th
 
 Affection on it's own will also dictate what types of interactions you can do with MC. For instance, more questions are unlocked over time as affection increases.
 
-There will also be a daily cap of 8 affection per day, which will not increase at any point. The maximum value that affection can be will be 10,000.
+There will also be a daily cap of 8 affection per day, which will not increase at any point. The maximum value that affection can be will be 1,000.
 
 At the start of the game, the player will have 0 affection.
 
