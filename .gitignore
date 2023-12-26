@@ -1,4 +1,4 @@
-game/*.rpyc
+*.rpyc
 game/saves/*
 game/*.rpa
 traceback.txt
