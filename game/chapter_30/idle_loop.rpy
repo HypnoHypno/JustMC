@@ -1,8 +1,6 @@
-default persistent.topics = []
-
-init python:
-    def jm_get_idle_time():
-        return random.randint(25, 45)
+# "topic_name": (["category1"], False)
+# where False = if it's been seen before
+default persistent.topics = {}
 
 label ch30_loop:
     $ persistent.can_impatient = True
@@ -13,7 +11,7 @@ label ch30_loop:
     python:
         pause(jm_get_idle_time())
         persistent.idling = False
-        choice = random.choice(persistent.topics)
+        choice = random.choice(list(persistent.topics.keys()))
         renpy.call(choice)
         persistent.idling = True
     jump ch30_loop
