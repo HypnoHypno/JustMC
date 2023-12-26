@@ -1,5 +1,4 @@
-# "topic_name": (["category1"], False)
-# where False = if it's been seen before
+# "topic_name": {"category": ["category1"], "seen": False, "unlocked": False, "pool": False}
 default persistent.topics = {}
 
 label ch30_loop:

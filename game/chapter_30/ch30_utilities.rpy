@@ -3,7 +3,7 @@ init -999 python:
     
     #---------------------------------------------------------
     # idle
-    def jm_add_new_topic(topic_name, category):
+    def jm_add_new_topic(topic_name, category, unlocked, playersays):
         """
         Will add a new random chatter topic to the database.
         
@@ -14,12 +14,14 @@ init -999 python:
             1. A string containing the label name of the topic that you want to add.
             2. A list containing the categories that you want it to be in, in string format. 
                Categories can be anything.
+            3. Do you want this topic to be unlocked or not?
+            4. Does the player say it (pool topic) or is it a random chatter topic?
         
         Out:
             A boolean representing whether or not we were successfully able to add it to the database.
         """
         if topic_name not in persistent.topics:
-            persistent.topics[topic_name] = (category, renpy.seen_label(topic_name))
+            persistent.topics[topic_name] = {"category": category, "seen": renpy.seen_label(topic_name), "unlocked": unlocked, "pool": playersays}
             return True
         else:
             return False
@@ -121,3 +123,4 @@ init -999 python:
         for afflevel in list(affection_map.keys()):
             if jm_isaffection(affection=afflevel):
                 return afflevel
+        return "invalid"
