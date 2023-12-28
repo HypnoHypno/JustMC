@@ -19,3 +19,7 @@ python early:
     class IllegalModLocation(Exception):
         def __str__(self):
             return "DDLC mods/mod projects cannot be run from this folder as it is a OneDrive or another cloud folder.\nMove your mod/mod project to another location and try again."
+
+    class TimeError(Exception):
+        def __str__(self):
+            return "Your computer's clock is set to the incorrect date, or has been altered somehow.\nIf you are not trying to cheat, contact the Just MC team for support."

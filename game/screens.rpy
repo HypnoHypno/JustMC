@@ -2112,8 +2112,3 @@ screen talk_screen:
             if ( persistent.idling ):
                 if ( not renpy.get_screen("category_menu") ):
                     action Jump("ch30_talkmenu") 
-            else:
-                if ( not persistent.can_impatient ):
-                    action NullAction()
-                else:
-                    action Jump("ch30_talk_impatient")

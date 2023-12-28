@@ -2,13 +2,12 @@
 default persistent.topics = {}
 
 label ch30_loop:
-    $ persistent.can_impatient = True
     $ persistent.idling = True
     if not renpy.showing("mc idle"):
         show mc idle at t11
     window hide
     python:
-        pause(jm_get_idle_time())
+        #pause(MC.getIdleTime())
         persistent.idling = False
         choice = random.choice(list(persistent.topics.keys()))
         renpy.call(choice)

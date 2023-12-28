@@ -18,9 +18,6 @@ init -100 python:
                 if onedrive_path in config.basedir:
                     raise IllegalModLocation
 
-#init -101 python:
-#    raise Exception("You are currently using the source code version of the mod, which is in-progress. \nPlease get a build instead. If you know exactly what you're doing, feel free to comment out this line of code.")
-
 ## Splash Message
 # This python statement is where the splash messages reside in.
 init python:

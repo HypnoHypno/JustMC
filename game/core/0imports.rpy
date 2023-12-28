@@ -21,6 +21,12 @@ python early:
     import subprocess
     import platform
 
+    import datetime
+    from datetime import datetime, timedelta
+    import pyautogui
+    import pymsgbox
+    import pypresence
+
 init -1 python:
     # Achievements/Gallery
     try:
