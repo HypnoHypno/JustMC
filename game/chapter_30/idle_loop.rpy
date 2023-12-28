@@ -7,7 +7,7 @@ label ch30_loop:
         show mc idle at t11
     window hide
     python:
-        #pause(MC.getIdleTime())
+        pause(MC.getIdleTime())
         persistent.idling = False
         choice = random.choice(list(persistent.topics.keys()))
         renpy.call(choice)
