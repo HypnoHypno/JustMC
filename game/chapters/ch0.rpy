@@ -23,7 +23,7 @@ label ch0_1:
     ".{w=0.5}.{w=0.5}."
     "This class is taking {w=0.1}{cps=*1.2}{b}ages{/b}{/cps}."
     "Usually I can at least get a rough picture of what the teacher is talking about, but I just can't focus on it today."
-    "What's the point of even paying attention when I know it's just going to be some useless crap that won't serve me anything in my life?"
+    "What's the point of even paying attention when I know it's just going to be some useless stuff that won't serve me anything in my life?"
     "So I look around the classroom, to see if there's anything even remotely interesting happening."
     "Instead, I'm greeted with the endless sea of likeminded students, who seem to be just as affected by the dull lecture."
     "But luckily, I have a plan to stave off the boredom."
@@ -37,13 +37,13 @@ label ch0_1:
     t "What role do mitochondria have in the cell?"
     mc "They're the powerhouse."
     t "What nitrogenous base in RNA pairs with adenine in DNA?"
-    mc "Uhm... {w=0.2}Uracil?"
+    mc "Uhmm... {w=0.2}Uracil?"
     t "What are you holding under your desk?"
     mc "{i}Half Piece Redux{/i} volume 723--{nw}"
     "{b}Crap{/b}."
     t "This is the {i}fifth{/i} time this month, {b}[player]{/b}."
     "The professor takes out his phone and starts typing something on it."
-    "Am I in trouble?"
+    "Am I in trouble...?"
     t "Councelor's office, third floor, room 307. {w=0.3}{i}Now.{/i}"
     "I guess that answers it for me."
     "I sigh, beginning to exit the classroom as the teacher points towards the door."
@@ -66,7 +66,7 @@ label ch0_2:
     "Either way, I'm not surprised in the slightest that no one wants to join it. {w=0.2}-- Literature isn't any more exciting than the lecture I had to endure."
     "Before I totally lose my train of thought, I remind myself of why I was even here in the first place."
     "I don't want to get in any more trouble than I'm already in, after all."
-    mc "Right, I should hurry to the councelor's office."
+    mc "Right, I should hurry to the councelor's office, shouldn't I...?"
 
 label ch0_3:
     scene bg club_day
@@ -78,12 +78,13 @@ label ch0_3:
     c "Ah, yes, [player]. Come in."
     "I begrudgingly enter the classroom."
     c "In case you're confused, my office is currently being renovated, so I borrowed this unused classroom."
-    mc "Ah."
+    mc "Ah..."
     mc ".{w=0.5}.{w=0.5}."
     mc "Okay."
     c "In any case..."
     c "I was told that you weren't paying attention during class?"
-    mc "..."
+    mc "...Yes..."
+    mc "For what it's worth, I promise I won't do it again..."
     c "Don't worry, you aren't in trouble."
     mc "Why not?"
     c "If it was up to him, you would be, but I have a more constructive approach to the problem at hand."
@@ -91,7 +92,7 @@ label ch0_3:
     mc "Well, yes... {w=0.2}But I don't have the motivation to do it."
     "Without any words, he hands me a list of clubs. It's identical to the one in the hallway."
     "I look to the literature club... {w}It's still blank."
-    mc "Why isn't there a name or contact for the literature club?"
+    mc "Who runs the literature club?"
     c "This school has a literature club?"
     mc "Yes, it's right here."
     "I return the list, letting the councelor double-check it."
@@ -109,7 +110,7 @@ label ch0_3:
     extend " But neither does anyone else in this school, which means that {i}nobody{/i} will join it and I won't have to deal with anyone."
     "And I might be able to use it as an excuse to read my manga during class too!"
     mc "Ah, well..."
-    mc "This could be a chance to broaden my horizons?"
+    mc "This could be a chance to broaden my horizons...?"
     c "Hm."
     "He looks at me suspiciously. I hope I'm not being too obvious with this."
     c "It sounds like all you needed was a little push."
@@ -145,10 +146,6 @@ label ch0_3:
     mc "WHAT THE HELL IS HAPPENING TO ME{nw}"
     call glitch(1)
     python:
-        import os
-        import pyautogui
-        import subprocess
-        import time
         pyautogui.FAILSAFE = False # This will make it so that if the mouse moves to a corner of the screen, it will keep typing.
         notepad_process = subprocess.Popen(["notepad.exe"])
         time.sleep(1)
