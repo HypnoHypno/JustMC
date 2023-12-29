@@ -2,8 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/chapter_30/mc_class.rpy", line 289: invalid syntax
-        def losePercentageAffection(affection=0.00)
+File "game/chapter_30/mc_class.rpy", line 338: invalid syntax
+                    "happy": [
+                     ^
 
 Ren'Py Version: Ren'Py 8.1.3.23091805
-Thu Dec 28 10:40:36 2023
+Thu Dec 28 16:14:41 2023

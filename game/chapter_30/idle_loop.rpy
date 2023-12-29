@@ -15,5 +15,6 @@ label ch30_loop:
     jump ch30_loop
 
 label ch30_talkmenu:
-    mc "What's up?"
+    $ chosen_quip = MC.getTalkMenuQuip()
+    mc "[chosen_quip]"
     jump ch30_loop

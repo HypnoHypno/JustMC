@@ -318,3 +318,24 @@ init -999 python:
                 persistent.affection = affection_hard_cap
             renpy.save_persistent()
             return persistent.affection
+        
+        # Mood
+        def getMood():
+            return persistent.mood #not done obviously lol
+
+        # Dialog
+        def getTalkMenuQuip():
+            pname = persistent.player_name
+            quipmap = { #TODO: in the future, have there be defined quips for every mood, and have variations for different affection levels.
+                "fine": [
+                    "Hey.",
+                    "Yeah?",
+                    "What's up?",
+                    "What's going on, " + pname + "?",
+                    "Oh, me?",
+                    "Ah, hi " + pname + ".",
+                    "Yo."
+                ]
+            }
+            chosen_quip = random.choice(quipmap["fine"])
+            return chosen_quip
