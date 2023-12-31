@@ -128,7 +128,6 @@ label ch0_3:
     "I suddenly--{nw}"
     $ quick_menu=False
     $ persistent.autoload = "ch1_0" # Point of no return.
-    $ persistent.affection = 0
     $ renpy.save_persistent()
     play music "mod_assets/audio/frequency.mp3"
     call glitch(0.25)
