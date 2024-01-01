@@ -1,18 +1,16 @@
 label ch30_autoload:
     $ config.allow_skipping = False
     $ delete_all_saves()
-    $ persistent.chapter = 30
-    $ persistent.idling = False
+    $ idling = False
     $ renpy.save_persistent()
+    $ p_name = persistent.data.get("player_name", "Player")
     python:
-        if persistent.last_visit > datetime.now():
-            raise TimeError
+        last_visit = persistent.data.get("last_visit", None)
+        if last_visit and last_visit > datetime.now():
+            memory.writeToPersistent("player_clock_broken", True)
         one_day_ago = datetime.now() - timedelta(days=1)
-        if not persistent.last_visit or persistent.last_visit <= one_day_ago:
-            persistent.affection_gain_today = 0
-    python:
-        if persistent.last_visit > datetime.now():
-            renpy.quit()
+        if not last_visit or last_visit <= one_day_ago:
+            memory.writeToPersistent("affection_gain_today", 0)
     play music t5
     scene bg bedroom
     show mc turned neut at t11
@@ -20,6 +18,6 @@ label ch30_autoload:
     jump ch30_greeting
 
 label ch30_greeting:
-    mc "[persistent.affection] [persistent.affection_gain_today]"
-    $ persistent.last_visit = datetime.now()
+    mc "Yo."
+    $ memory.writeToPersistent("last_visit", datetime.now())
     jump ch30_loop

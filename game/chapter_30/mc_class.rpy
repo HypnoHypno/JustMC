@@ -1,8 +1,6 @@
-default persistent.affection_gain_today = 0.00
-default persistent.affection_cap = 8.00
-
-init -999 python:
-    persistent.topics = {}
+init -990 python:
+    memory.writeToPersistent("topics", {})
+    memory.writeToPersistent("affection_daily_cap", 8)
     
     affection_map = {
        "loving": {
@@ -166,8 +164,11 @@ init -999 python:
             Out:
                 A boolean representing whether or not we were successfully able to add it to the database.
             """
-            if topic_name not in persistent.topics:
-                persistent.topics[topic_name] = {"category": category, "seen": renpy.seen_label(topic_name), "unlocked": unlocked, "pool": playersays}
+            topic_database = persistent.data.get("topics", {})
+            if topic_name not in topic_database:
+                new_topic = {topic_name: {"category": category, "seen": renpy.seen_label(topic_name), "unlocked": unlocked, "pool": playersays}}
+                topic_database.update(new_topic)
+                memory.writeToPersistent("topics", topic_database)
                 return True
             else:
                 return False
@@ -209,8 +210,8 @@ init -999 python:
             try:
                 global affection_map
                 affmap = affection_map[affection]["range"]
-                highercheck = persistent.affection >= affmap[0]
-                lowercheck = persistent.affection <= affmap[1]
+                highercheck = persistent.data.get("affection", 0) >= affmap[0]
+                lowercheck = persistent.data.get("affection", 0) <= affmap[1]
                 if not (higher or lower) or (higher and lower):
                     return highercheck and lowercheck
                 elif higher:
@@ -242,7 +243,7 @@ init -999 python:
                 pass
             return "invalid"
 
-        def gainAffection(affection=0.00, override=False):
+        def gainAffection(affectiongain=0.00, override=False):
             """
             Will earn the affection set above to MC. Will be multiplied by the "multi" value in affection_map for the current affection level.
 
@@ -262,18 +263,22 @@ init -999 python:
             affection_hard_cap = affection_map["loving"]["range"][0]
             affectionlvl = MC.getAffection()
             multiplier = affection_map[affectionlvl]["multi"]
-            affection *= multiplier
-            if persistent.affection_gain_today + affection > persistent.affection_cap and not override:
-                affection = persistent.affection_cap - persistent.affection_gain_today
-            persistent.affection += affection
+            affectiongain *= multiplier
+            affgaintoday = persistent.data.get("affection_gain_today", 0)
+            affcap = persistent.data.get("affection_daily_cap", 8)
+            aff = persistent.data.get("affection", 0)
+            if affgaintoday + affectiongain > affcap and not override:
+                affectiongain = affcap - affgaintoday
+            aff += affectiongain
             if not override:
-                persistent.affection_gain_today += affection
-            if persistent.affection > affection_hard_cap:
-                persistent.affection = affection_hard_cap
+                memory.writeToPersistent("affection_gain_today", affgaintoday + affectiongain)
+            if aff > affection_hard_cap:
+                aff = affection_hard_cap
+            memory.writeToPersistent("affection", aff)
             renpy.save_persistent()
-            return persistent.affection
+            return aff
 
-        def loseFloatAffection(affection=0.00):
+        def loseFloatAffection(affectionloss=0.00):
             """
             Will lose an amount of affection determined by the float passed.
 
@@ -287,13 +292,15 @@ init -999 python:
                 MC's current affection now.
             """
             affection_hard_cap = affection_map["antagonistic"]["range"][0]
-            persistent.affection -= affection
-            if persistent.affection < affection_hard_cap:
-                persistent.affection = affection_hard_cap
+            aff = persistent.data.get("affection", 0)
+            aff -= affectionloss
+            if aff < affection_hard_cap:
+                aff = affection_hard_cap
+            memory.writeToPersistent("affection", aff)
             renpy.save_persistent()
-            return persistent.affection
+            return aff
         
-        def losePercentageAffection(affection=0.00):
+        def losePercentageAffection(affectionloss=0.00):
             """
             Will lose a percentage of affection determined by the float passed. (If affection is less than 100, will assume that MC has exactly 100.0 affection.)
 
@@ -308,24 +315,26 @@ init -999 python:
                 MC's current affection now.
             """
             affection_hard_cap = affection_map["antagonistic"]["range"][0]
-            if persistent.affection >= 100.0:
-                total_affection = persistent.affection
+            aff = persistent.data.get("affection", 0)
+            if aff >= 100.0:
+                total_affection = aff
             else:
                 total_affection = 100.0
-            affection = (affection / 100) * total_affection
-            persistent.affection -= affection
-            if persistent.affection < affection_hard_cap:
-                persistent.affection = affection_hard_cap
+            affectionloss = (affectionloss / 100) * total_affection
+            aff -= affectionloss
+            if aff < affection_hard_cap:
+                aff = affection_hard_cap
+            memory.writeToPersistent("affection", aff)
             renpy.save_persistent()
-            return persistent.affection
+            return aff
         
         # Mood
         def getMood():
-            return persistent.mood #not done obviously lol
+            return persistent.data.get("mood", "fine") #not done obviously lol
 
         # Dialog
         def getTalkMenuQuip():
-            pname = persistent.player_name
+            pname = persistent.data.get("player_name", "Player")
             quipmap = { #TODO: in the future, have there be defined quips for every mood, and have variations for different affection levels.
                 "fine": [
                     "Hey.",

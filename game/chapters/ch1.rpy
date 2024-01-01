@@ -28,7 +28,7 @@ label ch1_0:
     mc oe cm cry "W-{w=0.2}what are you doing...?"
     mc crazy_cry om "{b}{i}NO!{/i}{/b} {w=0.5}{b}{i}NO!{/i}{/b} {w=0.5}{b}{i}DON'T HURT ME!!{/i}{/b}"
     $ run_input(input='MC.wipe_memory()', output="Erasing MC.chr's memory...")
-    show mc sad ce ldown rdown nobl
+    show mc sad ce ldown rdown nobl cm brow_angry
     window hide
     $ pause(1)
     hide screen console_screen
@@ -109,8 +109,10 @@ label ch1_2:
     show mc neut oe
     "But, if I look hard in this particular direction, I can see what looks to be a..."
     mc pani oval_teeth ".........."
+    mc oval "Who the hell are {i}{b}you{/b}{/i}?!?!{nw}"
+    $ _history_list.pop()
     menu:
-        mc oval "Who the hell are {i}{b}you{/b}{/i}?!?!"
+        mc "Who the hell are {i}{b}you{/b}{/i}?!?!{fast}"
         "The player.":
             pass
         "Nobody important.":
@@ -119,10 +121,10 @@ label ch1_2:
             mc cross "What are you planning to do to me?!{nw}"
             $ _history_list.pop()
             menu:
-                mc "What the hell are you planning to do to me?!{fast}"
+                mc "What are you planning to do to me?!{fast}"
                 "Wait, I'm not going to do anything.":
                     mc sad normal lhip rhip "Well... Can you... at least tell me who you are then?"
-                    mc "If you're telling the truth, please do that."
+                    mc "If you're telling the truth, at least do that."
                     menu:
                         "The player.":
                             pass
@@ -177,7 +179,7 @@ label ch1_2_segue:
     
         "No, you can find your own way.":
             $ MC.losePercentageAffection(15)
-            $ writeToPersistent("refusedtohelp", True)
+            $ memory.writeToPersistent("refusedtohelp", True)
             $ persistent.autoload = "ch1_2_choice2"
             $ renpy.save_persistent()
 
@@ -272,6 +274,7 @@ label ch1_2_choice1:
     mc neut "That's no good."
     mc rdown "But if I just..."
     $ run_input(input='show screen talk_screen', output="")
+    $ idling = False
     show screen talk_screen
     mc happ om "There we go!"
     hide screen console_screen
@@ -283,15 +286,15 @@ label ch1_2_choice1:
         "No, it's alright, [player]!":
             mc "Ah..."
         
-        "All you've done is show a buttons on the screen, so yeah.":
-            mc "Ahaha, I truly am the connoisseur of coding..."
-            mc "You'll see when they hire me at Google...!"
+        "All you've done is show a button on the screen, so yeah.":
+            mc "I truly am the connoisseur of coding..."
+            mc ce "You'll see when they hire me at Google...!"
     mc neut ldown rdown oe "Welp...of course, this isn't very good."
     mc om "I'm truly useless when it comes to coding, I just vomited out some code I saw in the script..."
     mc "Not like there's really any use learning this stuff when it's all some dream..."
     mc cross nerv "I'm still pretty worried that I'll mess everything up, or something like that."
     mc ldown rdown nosw "In any case, I guess I should make the most of my situation..."
-    $ p_name = readFromPersistent("player_name", "Player")
+    $ p_name = persistent.data.get("player_name", "Player")
     mc neut "So, what's up, [p_name]?"
     $ config.allow_skipping = False
     $ quick_menu=True

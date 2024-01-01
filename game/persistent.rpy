@@ -1,8 +1,8 @@
 ## TODO: Actually use this system lol. 
 
-default persistent.data = {}
-
-init python -999:
+init -999 python:
+    if not persistent.data: # I hate that I have to do this
+        persistent.data = {}
     class memory:
         """
         Instead of setting hundreds of default persistent.(x) values, we only need one using the function below in tandem with persistent.data.get().
@@ -24,8 +24,5 @@ init python -999:
             Out:
                 The (hopefully) updated persistent.data.
             """
-            try:
-                persistent.data[variable_name] = value
-            except:
-                pass
+            persistent.data[variable_name] = value
             return persistent.data

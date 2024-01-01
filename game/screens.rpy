@@ -2109,6 +2109,6 @@ screen talk_screen:
         xalign 0.99
         textbutton "Talk":
             size_group None
-            if ( persistent.idling ):
+            if ( idling ):
                 if ( not renpy.get_screen("category_menu") ):
                     action Jump("ch30_talkmenu") 
