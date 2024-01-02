@@ -869,7 +869,7 @@ init python:
         if persistent.playthrough == 1 and not persistent.deleted_saves and renpy.current_screen().screen_name[0] == "load" and FileLoadable(name):
             return Show(screen="dialog", message="File error: \"characters/sayori.chr\"\n\nThe file is missing or corrupt.",
                 ok_action=Show(screen="dialog", message="The save file is corrupt. Starting a new game.", ok_action=Function(renpy.full_restart, label="start")))
-        elif persistent.chapter > 0 and renpy.current_screen().screen_name[0] == "save":
+        elif persistent.data.get("mc_aware", False) and renpy.current_screen().screen_name[0] == "save":
             ## This dialog should change depending on affection, as MC may think you're trying to undo your past mistakes with saving.
             return Show(screen="dialog", message="Don't do that!!\nThat's how you cause a time paradox!", ok_action=Hide("dialog"))
         else:

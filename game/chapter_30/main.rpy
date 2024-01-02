@@ -1,10 +1,12 @@
 label ch30_autoload:
-    $ config.allow_skipping = False
-    $ delete_all_saves()
-    $ idling = False
-    $ renpy.save_persistent()
-    $ p_name = persistent.data.get("player_name", "Player")
     python:
+        config.allow_skipping = False
+        delete_all_saves()
+        idling = False
+        renpy.save_persistent()
+        p_name = persistent.data.get("player_name", "Player")
+        if not persistent.data.get("mc_aware", False):
+            memory.writeToPersistent("mc_aware", True)
         last_visit = persistent.data.get("last_visit", None)
         if last_visit and last_visit > datetime.now():
             memory.writeToPersistent("player_clock_broken", True)

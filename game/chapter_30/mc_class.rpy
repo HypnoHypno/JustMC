@@ -147,7 +147,7 @@ init -990 python:
         """
 
         # Idle
-        def addTopic(topic_name, category, unlocked, playersays):
+        def addTopic(topic_name="mc_dialog_example", pretty_name="Dialog Example", category=["Misc"], unlocked=False, affection_range=["invalid","invalid"], playersays=False, submod=None):
             """
             Will add a new random chatter topic to the database.
 
@@ -155,30 +155,87 @@ init -990 python:
                 1. The topic set isn't already in the database.
 
             In:
-                1. A string containing the label name of the topic that you want to add.
-                2. A list containing the categories that you want it to be in, in string format. 
-                    Categories can be anything.
-                3. Do you want this topic to be unlocked or not?
-                4. Does the player say it (pool topic) or is it a random chatter topic?
+                1. A string containing the label name of the topic that you want to add. (Default "mc_dialog_example")
+                2. A string containing the in-game name of the topic. (Default "Dialog Example")
+                3. A list containing the categories that you want it to be in, in string format.
+                    Categories can be anything. (Default ["Misc"])
+                4. Do you want this topic to be unlocked or not? (Default False)
+                5. A list containing the range of affection you want it to appear at, with 
+                    the first value being the low end, and the second value being the high end. (Default ["invalid", "invalid"])
+                6. Does the player say it (pool topic)? False means it's a random chatter topic. (Default False)
+                7. If this is a submod topic, input the string name of the submod it belongs to. (Default None)
             
             Out:
                 A boolean representing whether or not we were successfully able to add it to the database.
             """
             topic_database = persistent.data.get("topics", {})
             if topic_name not in topic_database:
-                new_topic = {topic_name: {"category": category, "seen": renpy.seen_label(topic_name), "unlocked": unlocked, "pool": playersays}}
+                new_topic = {topic_name: {"pretty_name": pretty_name, "category": category, "seen": renpy.seen_label(topic_name), "unlocked": unlocked, "affection_range": affection_range, "pool": playersays, "submod": submod}}
                 topic_database.update(new_topic)
                 memory.writeToPersistent("topics", topic_database)
                 return True
             else:
                 return False
+        
+        def changeTopicVariable(topic_name="mc_dialog_example", topic_variable="unlocked", update=True):
+            """
+            Will update a variable in a topic set. Used internally to unlock and lock topics.
+
+            Conditions:
+                1. The topic set is in the database.
+
+            In:
+                1. A string containing the label name of the topic that you want to add. (Default "mc_dialog_example")
+                2. The key you want to change the value of. (Default "unlocked")
+                3. What do you want to change the value to? (Default True)
+            
+            Out:
+                A boolean representing whether or not we were successfully able to update the database.
+            """
+            topic_database = persistent.data.get("topics", {})
+            if topic_name in topic_database:
+                topic_database[topic_name][topic_variable] = update
+                memory.writeToPersistent("topics", topic_database)
+                return True
+            else:
+                return False
+        
+        def unlockTopic(topic_name="mc_dialog_example"):
+            """
+            Will unlock a topic in the database, calls MC.changeTopicVariable() internally.
+
+            Conditions:
+                Nothing.
+
+            In:
+                The name of the topic you want to unlock.
+            
+            Out:
+                A boolean representing whether or not we were successfully able to update the database.
+            """
+            return MC.changeTopicVariable(topic_name=topic_name, topic_variable="unlocked", update=True)
+
+        def lockTopic(topic_name="mc_dialog_example"):
+            """
+            Will lock a topic in the database, calls MC.changeTopicVariable() internally.
+
+            Conditions:
+                Nothing.
+
+            In:
+                The name of the topic you want to lock.
+            
+            Out:
+                A boolean representing whether or not we were successfully able to update the database.
+            """
+            return MC.changeTopicVariable(topic_name=topic_name, topic_variable="unlocked", update=False)
 
         def getIdleTime():
             """
             Will return an amount of seconds to wait during idle.
 
             Conditions:
-                1. The random chatter frequency set.
+                The random chatter frequency set.
 
             In:
                 Nothing.
@@ -197,7 +254,7 @@ init -990 python:
             Will return if MC is the affection level specified, or higher/lower if stated so.
 
             Conditions:
-                1. If higher/lower is set to true.
+                If higher/lower is set to true.
 
             In:
                 1. The affection level you wish to check for, in lowercase. (Default "neutral".)
@@ -226,7 +283,7 @@ init -990 python:
             Will return the level of affection MC is at. Prefer using MC.isAffection(affection, higher, lower) over this if you can.
 
             Conditions:
-                1. For every level of affection, is MC that affection level?
+                For every level of affection, is MC that affection level?
 
             In:
                 Nothing.

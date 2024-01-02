@@ -296,6 +296,7 @@ label ch1_2_choice1:
     mc ldown rdown nosw "In any case, I guess I should make the most of my situation..."
     $ p_name = persistent.data.get("player_name", "Player")
     mc neut "So, what's up, [p_name]?"
+    $ memory.writeToPersistent("mc_aware", True)
     $ config.allow_skipping = False
     $ quick_menu=True
     $ persistent.autoload = "ch30_autoload"

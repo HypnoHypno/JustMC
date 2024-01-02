@@ -1,43 +1,19 @@
 init -10 python:
     MC.addTopic(
-        topic_name = "mc_dialog_test",
-        category = ["Dev"],
-        unlocked = (True
-            and True), # Example of how you can use conditionals to unlock topics.
-        playersays = False
+        topic_name="mc_dialog_example",
+        pretty_name="Dialog Example",
+        category=["Dev", "Misc"],
+        unlocked=(True and True) # You can use conditionals here as shown, but it will require the game to be restarted to update. Prefer to set the default value in here, and use MC.unlockTopic() and MC.lockTopic() respectively.
+        affection_range=["invalid","invalid"] # This will be checked every time a random topic needs to be shown, or the talk menu is opened.
+        playersays=False,
+        submod=None # If this is Submod dialog, put the name of the Submod it should be attached to.
     )
 
-label mc_dialog_test:
-    show mc turned
-    mc "What do you want to do?"
-    menu:
-        "Reset Affection":
-            $ persistent.affection = 0.0
-            $ persistent.affection_gain_today = 0.0
-            $ renpy.save_persistent()
-            mc "[persistent.affection] [persistent.affection_gain_today]"
-
-        "Debug Gain Affection":
-            mc "How much to gain?"
-            $ testaffgain = float(renpy.input("Number", allow="1234567890"))
-            mc "Bypass?"
-            menu:
-                "Yes":
-                    $ testaffgain = MC.gainAffection(testaffgain, True)
-
-                "No":
-                    $ testaffgain = MC.gainAffection(testaffgain, False)
-            mc "[testaffgain] [persistent.affection_gain_today]"
-
-        "Debug Loss Affection":
-            mc "How much to lose?"
-            $ testaffloss = float(renpy.input("Number", allow="1234567890"))
-            menu:
-                "Lose Percent":
-                    $ testaffloss = MC.losePercentageAffection(testaffloss)
-                    mc "[testaffloss]"
-
-                "Lose hard value":
-                    $ testaffloss = MC.loseFloatAffection(testaffloss)
-                    mc "[testaffloss]"
+label mc_dialog_example:
+    mc cross "This is example text.{nw}"
+    extend om normal_lookaway "{w=0.4} It should show you how to write your own dialog."
+    mc nerv om lhip rhip "But... {w=0.6}Should this really be in the mod?"
+    mc ce swea "I don't really think so."
+    mc oe neut nosw "Mm... {w=0.6}Who's idea was this, anyways?"
+    mc nerv normal rdown "I don't think they should be allowed to contribute, {w=0.2}ahaha..."
     return
