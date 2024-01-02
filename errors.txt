@@ -3,8 +3,8 @@ errors listed below, and try again.
 
 
 File "game/chapter_30/topics/dev/topics_dev.rpy", line 7: invalid syntax
-            affection_range=["invalid","invalid"] 
+            affection_range=["invalid","invalid"], 
              ^
 
 Ren'Py Version: Ren'Py 8.1.3.23091805
-Tue Jan  2 05:25:26 2024
+Tue Jan  2 05:25:46 2024
