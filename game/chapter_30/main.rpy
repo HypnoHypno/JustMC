@@ -3,6 +3,7 @@ label ch30_autoload:
         config.allow_skipping = False
         delete_all_saves()
         idling = False
+        tmenu = False
         renpy.save_persistent()
         p_name = persistent.data.get("player_name", "Player")
         if not persistent.data.get("mc_aware", False):

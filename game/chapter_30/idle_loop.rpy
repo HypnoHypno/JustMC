@@ -15,6 +15,10 @@ label ch30_loop:
     jump ch30_loop
 
 label ch30_talkmenu:
+    $ idling = False
+    $ tmenu = True
     $ chosen_quip = MC.getTalkMenuQuip()
-    mc "[chosen_quip]"
+    mc "[chosen_quip]" (interact=False)
+    $ ui.interact()
+    $ tmenu = False
     jump ch30_loop

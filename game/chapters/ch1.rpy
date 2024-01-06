@@ -288,7 +288,7 @@ label ch1_2_choice1:
         
         "All you've done is show a button on the screen, so yeah.":
             mc "I truly am the connoisseur of coding..."
-            mc ce "You'll see when they hire me at Google...!"
+            mc ce "You'll see when they hire me at Google!"
     mc neut ldown rdown oe "Welp...of course, this isn't very good."
     mc om "I'm truly useless when it comes to coding, I just vomited out some code I saw in the script..."
     mc "Not like there's really any use learning this stuff when it's all some dream..."

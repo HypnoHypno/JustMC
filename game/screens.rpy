@@ -501,7 +501,7 @@ screen navigation():
                 textbutton _("End Replay") action EndReplay(confirm=True)
 
             elif not main_menu:
-                if persistent.chapter == 0:
+                if not persistent.data.get("mc_aware", False):
                     textbutton _("Main Menu") action MainMenu()
                 else:
                     textbutton _("Main Menu") action NullAction()
@@ -2101,14 +2101,82 @@ label choose_language:
     call screen choose_language
     return
 
+define gui.talk_button_width = 100
+define gui.talk_button_text_xalign = 0.5
+define gui.tgrid_button_width = 200
+define gui.tgrid_button_text_xalign = 0.5
+
+style talk_button is gui_button
+style talk_button_text is gui_button_text
+
+style talk_button:
+    properties gui.button_properties("talk_button")
+    hover_sound gui.hover_sound
+    activate_sound gui.activate_sound
+
+style talk_button_text:
+    properties gui.button_text_properties("talk_button")
+    font "gui/font/RifficFree-Bold.ttf"
+    color "#fff"
+    outlines [(4, text_outline_color, 0, 0), (2, text_outline_color, 2, 2)]
+    #outlines [(4, "#b59", 0, 0), (2, "#b59", 2, 2)]
+    hover_outlines [(4, "#fac", 0, 0), (2, "#fac", 2, 2)]
+    insensitive_outlines [(4, "#fce", 0, 0), (2, "#fce", 2, 2)]
+
+style tgrid_button is gui_button
+style tgrid_button_text is gui_button_text
+
+style tgrid_button:
+    properties gui.button_properties("tgrid_button")
+    hover_sound gui.hover_sound
+    activate_sound gui.activate_sound
+
+style tgrid_button_text:
+    properties gui.button_text_properties("tgrid_button")
+    font "gui/font/RifficFree-Bold.ttf"
+    color "#fff"
+    outlines [(4, text_outline_color, 0, 0), (2, text_outline_color, 2, 2)]
+    #outlines [(4, "#b59", 0, 0), (2, "#b59", 2, 2)]
+    hover_outlines [(4, "#fac", 0, 0), (2, "#fac", 2, 2)]
+    insensitive_outlines [(4, "#fce", 0, 0), (2, "#fce", 2, 2)]
+
 screen talk_screen:
     frame:
-        style_prefix "navigation"
-        padding 4, 4, 4, 4
-        yalign 0.02
-        xalign 0.99
+        xalign 0.0536
+        yalign 0.99
         textbutton "Talk":
-            size_group None
-            if ( idling ):
-                if ( not renpy.get_screen("category_menu") ):
-                    action Jump("ch30_talkmenu") 
+            style_prefix "talk"
+            action [ Jump("ch30_talkmenu"), SensitiveIf(idling) ]
+    if tmenu:
+        grid 1 999:
+            xmargin 12
+            ymargin 221
+            yspacing 20
+            frame:
+                textbutton "Ask Question":
+                    style_prefix "tgrid"
+                    action [ Return() ]
+            frame:
+                textbutton "Repeat Dialogue":
+                    style_prefix "tgrid"
+                    action [ Return() ]
+            frame:
+                textbutton "Compliment":
+                    style_prefix "tgrid"
+                    action [ Return() ]
+            frame:
+                textbutton "Insult":
+                    style_prefix "tgrid"
+                    action [ Return() ]
+            frame:
+                textbutton "Apologize":
+                    style_prefix "tgrid"
+                    action [ Return() ]
+            frame:
+                textbutton "Goodbye":
+                    style_prefix "tgrid"
+                    action [ Return() ]
+            frame:
+                textbutton "Nevermind":
+                    style_prefix "tgrid"
+                    action [ Return() ]
