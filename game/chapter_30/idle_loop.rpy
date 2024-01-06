@@ -8,7 +8,8 @@ label ch30_loop:
     python:
         pause(MC.getIdleTime())
         idling = False
-        choice = random.choice(list(persistent.data.get("topics", {}).keys()))
+        choice = random.choice(list(topics.keys()))
+        topics[choice]["seen"] = True
         renpy.show("mc turned")
         renpy.call(choice)
     jump ch30_loop

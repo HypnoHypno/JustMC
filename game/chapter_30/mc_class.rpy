@@ -1,6 +1,7 @@
 init -990 python:
-    memory.writeToPersistent("topics", {})
-    memory.writeToPersistent("affection_daily_cap", 8)
+    topics = {}
+    if not persistent.data.get("affection_daily_cap", None):
+        memory.writeToPersistent("affection_daily_cap", 8)
     
     affection_map = {
        "loving": {
@@ -147,7 +148,7 @@ init -990 python:
         """
 
         # Idle
-        def addTopic(topic_name="mc_dialog_example", pretty_name="Dialog Example", category=["Misc"], unlocked=False, affection_range=["invalid","invalid"], playersays=False, submod=None):
+        def addTopic(topic_name="mc_dialog_example", pretty_name="Dialog Example", category=["Misc"], unlocked=False, playersays=False, submod=None):
             """
             Will add a new random chatter topic to the database.
 
@@ -160,19 +161,15 @@ init -990 python:
                 3. A list containing the categories that you want it to be in, in string format.
                     Categories can be anything. (Default ["Misc"])
                 4. Do you want this topic to be unlocked or not? (Default False)
-                5. A list containing the range of affection you want it to appear at, with 
-                    the first value being the low end, and the second value being the high end. (Default ["invalid", "invalid"])
                 6. Does the player say it (pool topic)? False means it's a random chatter topic. (Default False)
                 7. If this is a submod topic, input the string name of the submod it belongs to. (Default None)
             
             Out:
                 A boolean representing whether or not we were successfully able to add it to the database.
             """
-            topic_database = persistent.data.get("topics", {})
-            if topic_name not in topic_database:
-                new_topic = {topic_name: {"pretty_name": pretty_name, "category": category, "seen": renpy.seen_label(topic_name), "unlocked": unlocked, "affection_range": affection_range, "pool": playersays, "submod": submod}}
-                topic_database.update(new_topic)
-                memory.writeToPersistent("topics", topic_database)
+            if topic_name not in topics:
+                new_topic = {topic_name: {"pretty_name": pretty_name, "category": category, "seen": renpy.seen_label(topic_name), "unlocked": unlocked, "pool": playersays, "submod": submod}}
+                topics.update(new_topic)
                 return True
             else:
                 return False
@@ -192,10 +189,8 @@ init -990 python:
             Out:
                 A boolean representing whether or not we were successfully able to update the database.
             """
-            topic_database = persistent.data.get("topics", {})
-            if topic_name in topic_database:
-                topic_database[topic_name][topic_variable] = update
-                memory.writeToPersistent("topics", topic_database)
+            if topic_name in topics:
+                topics[topic_name][topic_variable] = update
                 return True
             else:
                 return False
