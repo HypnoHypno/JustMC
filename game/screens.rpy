@@ -2150,14 +2150,14 @@ screen talk_screen:
     if tmenu:
         grid 1 999:
             xmargin 12
-            ymargin 221
+            ymargin 157
             yspacing 20
             frame:
                 textbutton "Ask Question":
                     style_prefix "tgrid"
                     action [ Return() ]
             frame:
-                textbutton "Repeat Dialogue":
+                textbutton "Repeat Dialog":
                     style_prefix "tgrid"
                     action [ Return() ]
             frame:
@@ -2166,6 +2166,10 @@ screen talk_screen:
                     action [ Return() ]
             frame:
                 textbutton "Insult":
+                    style_prefix "tgrid"
+                    action [ Return() ]
+            frame:
+                textbutton "Give Thanks":
                     style_prefix "tgrid"
                     action [ Return() ]
             frame:

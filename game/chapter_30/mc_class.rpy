@@ -1,5 +1,4 @@
 init -990 python:
-    topics = {}
     if not persistent.data.get("affection_daily_cap", None):
         memory.writeToPersistent("affection_daily_cap", 8)
     
@@ -167,9 +166,11 @@ init -990 python:
             Out:
                 A boolean representing whether or not we were successfully able to add it to the database.
             """
+            topics = persistent.data.get("topics", {})
             if topic_name not in topics:
                 new_topic = {topic_name: {"pretty_name": pretty_name, "category": category, "seen": renpy.seen_label(topic_name), "unlocked": unlocked, "pool": playersays, "submod": submod}}
                 topics.update(new_topic)
+                memory.writeToPersistent("topics", topics)
                 return True
             else:
                 return False
@@ -386,7 +387,6 @@ init -990 python:
 
         # Dialog
         def getTalkMenuQuip():
-            pname = persistent.data.get("player_name", "Player")
             quipmap = { #TODO: in the future, have there be defined quips for every mood, and have variations for different affection levels.
                 "fine": [
                     "Hey.",
