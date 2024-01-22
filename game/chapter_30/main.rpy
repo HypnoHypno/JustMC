@@ -14,6 +14,7 @@ label ch30_autoload:
         one_day_ago = datetime.now() - timedelta(days=1)
         if not last_visit or last_visit <= one_day_ago:
             memory.writeToPersistent("affection_gain_today", 0)
+        pname = persistent.data.get("player_name", "Player")
     play music t5
     scene bg bedroom
     show mc turned neut at t11

@@ -6,7 +6,7 @@ label ch30_loop:
         show mc idle at t11
     window hide
     python:
-        pause(MC.getIdleTime())
+        pause(Idle.getIdleTime())
         idling = False
         topics = persistent.data.get("topics", {})
         choice = random.choice(list(topics.keys()))

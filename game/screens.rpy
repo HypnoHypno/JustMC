@@ -2140,7 +2140,7 @@ style tgrid_button_text:
     hover_outlines [(4, "#fac", 0, 0), (2, "#fac", 2, 2)]
     insensitive_outlines [(4, "#fce", 0, 0), (2, "#fce", 2, 2)]
 
-screen talk_screen:
+screen talk_screen():
     frame:
         xalign 0.0536
         yalign 0.99
